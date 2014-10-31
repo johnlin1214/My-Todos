@@ -1,3 +1,10 @@
+<div class="welcome-container">
+  <% if @current_user %>
+    <p>Welcome <%=@current_user.username.capitalize %></p>
+  <% end %>
+</div>
+
+
 <div class="home-container">
   <center><h1>Note Taker</h1></center>
 
@@ -15,11 +22,20 @@
         <input type="hidden" name="_method" value="delete"><input type="submit" value="Delete Note">
       </form>
     </div>
-
     <% end %>
   </ol>
-
   </div>
+
+
+  <div class="container">
+  <h1>Create A Note</h1>
+  <form action="/notes" method="POST">
+    <label>Title: <input type="text" name="title" placeholder="Enter Title"></label><br><br>
+
+    <label>Content: <textarea rows="5" cols="30" name="content" placeholder="Enter Note Content"></textarea></label><br><br>
+    <input type="submit" value="Submit">
+  </form>
+</div>
 
 
 

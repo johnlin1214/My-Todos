@@ -3,10 +3,10 @@ get '/' do
 end
 
 get '/notes' do
-	current_user = User.find(session[:user_id]) if session[:user_id]
+	@current_user = User.find(session[:user_id]) if session[:user_id]
 
-	if current_user 
-	  @notes = current_user.notes.order(:id => :asc)
+	if @current_user 
+	  @notes = @current_user.notes.order(:id => :asc)
 	  erb :notes
 	else 
 		redirect '/' # Is this necessary?
@@ -18,8 +18,9 @@ get '/notes/new' do
 end
 
 post '/notes' do
-	Note.create!(params)
-	redirect '/notes'
+	note = Note.create(title: params[:title], content: params[:content])
+	content_type :json 
+	{ note_id: note.id, title: note.title, content: note.content }.to_json	
 end
 
 put '/notes/:id' do
