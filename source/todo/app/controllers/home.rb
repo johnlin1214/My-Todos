@@ -3,18 +3,14 @@ get '/' do
 end
 
 get '/notes' do
-	# user = User.find(session[:user_id])
-	# @user_notes = user.notes.order(:id => :asc)
+	current_user = User.find(session[:user_id]) if session[:user_id]
 
-	user = User.find(session[:user_id]) if session[:user_id]
-
-	if user
-	  @notes = current_user.notes
-	else
-		@notes = Note.all
-	end
-	erb :notes
-	# @all_notes = Note.all.order(:id => :asc)
+	if current_user 
+	  @notes = current_user.notes.order(:id => :asc)
+	  erb :notes
+	else 
+		redirect '/' # Is this necessary?
+	end 
 end
 
 get '/notes/new' do
