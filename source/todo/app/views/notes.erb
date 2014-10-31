@@ -1,0 +1,33 @@
+<div class="home-container">
+  <center><h1>Note Taker</h1></center>
+
+    <ol>
+    <%  @notes.each do |note| %>
+    <div class="notes-div">
+      <li><a href="/notes/<%=note.id%>"><%= note.title %></a> </li>
+
+      <form action="/notes/<%= note.id %>/edit" method="get">
+        <input type="hidden" name="_method" value="put">
+        <input type="submit" value="Edit">
+      </form>
+
+      <form action="/notes/<%= note.id%>" method="post">
+        <input type="hidden" name="_method" value="delete"><input type="submit" value="Delete Note">
+      </form>
+    </div>
+
+    <% end %>
+  </ol>
+
+  </div>
+
+
+
+
+
+
+<div class="new-note-container">
+  <h3><a href="/notes/new">Create A New Note</a><h3>
+</div>
+<%= erb :_logout %>
+
